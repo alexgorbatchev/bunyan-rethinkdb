@@ -29,12 +29,11 @@ import r from 'rethinkdb';
 // open RethinkDB connection first
 // const connection = ...
 
-const stream = new BunyanToRethinkDB(r, connection);
 const logger = bunyan.createLogger({
   name: 'rethinkdb',
   streams: [
     { stream: process.stdout },
-    { type: 'raw', stream }
+    { stream: new BunyanToRethinkDB(r, connection) }
   ]
 });
  
