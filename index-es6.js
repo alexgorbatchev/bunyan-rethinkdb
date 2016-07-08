@@ -1,3 +1,5 @@
+import recursiveOmitBy from 'recursive-omit-by';
+
 export default class BunyanToRethinkDB {
   constructor(r, connectionOrPromiseOf, opts = {}) {
     opts.bufferLength = opts.bufferLength || 1;
@@ -19,9 +21,11 @@ export default class BunyanToRethinkDB {
       throw new Error('bunyan-rethinkdb requires a raw stream. Please define the type as raw when setting up the bunyan stream.');
     }
 
-    data.time = this.r.now();
+    const cleanObject = recursiveOmitBy(data, ({ node }) => typeof node === 'undefined');
 
-    this._buffer.push(data);
+    cleanObject.time = this.r.now();
+
+    this._buffer.push(cleanObject);
     return this._checkBuffer();
   }
 

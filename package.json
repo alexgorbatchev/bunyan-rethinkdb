@@ -31,7 +31,11 @@
     "babel-preset-es2015": "^6.6.0",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
+    "recursive-omit-by": "^1.1.0",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0"
+  },
+  "dependencies": {
+    "recursive-omit-by": "^1.1.0"
   }
 }

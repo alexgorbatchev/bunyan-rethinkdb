@@ -47,6 +47,13 @@ describe('bunyan-rethinkdb', () => {
         expect(r.insert).to.be.calledWith([ { foo: 1, time: sinon.match.date } ]);
       })
     );
+
+    it('strips undefined values', () =>
+      instance.write({ foo: 1, code: undefined }).then(() => {
+        expect(r.table).to.be.calledOnce;
+        expect(r.insert).to.be.calledWith([ { foo: 1, time: sinon.match.date } ]);
+      })
+    );
   });
 
   describe('with buffer and no buffer timeout', () => {
