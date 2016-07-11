@@ -19,7 +19,7 @@ npm instal --save-dev bunyan-rethinkdb
 `bunyan-rethinkdb` expects the follow:
 
 * You have already created `bunyan_logs` (or another table configured via `tableName` option)
-* You have already opened your connection
+* You have already opened your connection. If the connection is closed, `bunyan-rethinkdb` will try to send the data when connection is (re)opened.
 
 ```js
 import bunyan from 'bunyan';

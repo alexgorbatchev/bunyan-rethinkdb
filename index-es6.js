@@ -52,9 +52,16 @@ export default class BunyanToRethinkDB {
         .table(this.opts.tableName)
         .insert(this._buffer)
         .run(connection)
-        .then(() => {
-          this._buffer = [];
-        })
+        .then(
+          () => this._buffer = [],
+          err => {
+            if (err.name === 'ReqlRuntimeError' && err.msg === 'Connection is closed.') {
+              connection.once('connect', () => this._processBuffer());
+            } else {
+              throw err;
+            }
+          }
+        )
     )
     .catch(err => console.error(err.stack))
     ;
