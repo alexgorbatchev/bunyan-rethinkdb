@@ -35,7 +35,7 @@ describe('bunyan-rethinkdb', () => {
 
   beforeEach(() => {
     r = new MockRethinkDB();
-    connection = Promise.resolve();
+    connection = Promise.resolve({ open: true });
   });
 
   describe('default options', () => {

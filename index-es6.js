@@ -47,13 +47,17 @@ export default class BunyanToRethinkDB {
       return Promise.resolve();
     }
 
-    return this.connection.then(connection => this
-      .r
-        .table(this.opts.tableName)
-        .insert(this._buffer)
-        .run(connection)
-        .then(() => this._buffer = [])
-    )
+    return this.connection.then(connection => {
+      if (connection.open) {
+        return this.r
+          .table(this.opts.tableName)
+          .insert(this._buffer)
+          .run(connection)
+          .then(() => this._buffer = [])
+      } else {
+        throw new Error("RethinkDB connection is closed");
+      }
+    })
     .catch(err => console.error(err.stack))
     ;
   }
