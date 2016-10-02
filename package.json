@@ -1,6 +1,6 @@
 {
   "name": "bunyan-rethinkdb",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Bunyan logger that sends data to RethinkDB.",
   "main": "index.js",
   "files": [
